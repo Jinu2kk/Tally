@@ -77,8 +77,11 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 > 참고: 앱 안 미리보기의 `Button(intent:)`는 인텐트를 실행하지 않아 UI 자동화 대상에서 제외. 위젯 체크(MT-5.2)는 홈 화면에서 수동 확인
 **종료:** MT-5.x 통과
 
-## Phase 6 — 설정 (FR-6)
-- [ ] `SettingsView`: 화면 모드, 테마, 주 시작 요일, 생년월일, 기대수명, 알림 상태, 데이터 초기화(확인 필수)
+## Phase 6 — 설정 (FR-6) ✅
+- [x] `SettingsView`: 화면 모드, 테마, 주 시작 요일, 생년월일, 기대수명, 알림 상태, 데이터 초기화(확인 필수)
+
+- [x] 보관한 습관 꺼내기 (FR-1.1 보관의 복원 경로)
+- [x] UI 테스트 `SettingsFlowUITests` (월요일 시작, 다크 모드, 초기화 취소/확인)
 
 **기본 테스트:** T-6.1 설정 기본값 / 전체 빌드
 **종료:** MT-6.x 통과
@@ -100,7 +103,7 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 ## 상태 (Handoff)
 | 항목 | 내용 |
 |---|---|
-| 완료 | 문서 4종, Phase 0~5 |
-| 다음 | Phase 6 설정 |
+| 완료 | 문서 4종, Phase 0~6 |
+| 다음 | Phase 7 테스트 강화 |
 | 막힌 점 | 없음 (GitHub 인증 완료, 단계별 push 중) |
 | 최신 커밋 | (없음) |
