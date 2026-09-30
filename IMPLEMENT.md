@@ -45,14 +45,16 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 
 **종료:** MT-3.x 통과
 
-## Phase 3 — 시간 (FR-2)
-- [ ] `YearProgress`, `LifeProgress`, `DDayMath`
-- [ ] `TimeView`: 올해 진행률 카드, 라이프 캘린더 카드, D-Day 목록
-- [ ] `WallpaperView` + ShareLink — IC-8
-- [ ] `MakeWallpaperIntent`, `TallyShortcuts`
+## Phase 3 — 시간 (FR-2) ✅
+- [x] `YearProgress`, `LifeProgress`, `DDayMath`
+- [x] `TimeView`: 올해 진행률 카드, 라이프 캘린더 카드, D-Day 목록
+- [x] `WallpaperView` + ShareLink — IC-8
+- [x] `MakeWallpaperIntent`, `TallyShortcuts`
 
 **기본 테스트:** T-3.1 1월 1일 → 1일째 / T-3.2 윤년 366 / T-3.3 12월 31일 남은 0일 / T-3.4 생애 주 수 = 기대수명×52 / T-3.5 D-Day 라벨 D-3, D-Day, D+2
-**종료:** MT-2.x 통과
+- [x] UI 테스트 `TimeFlowUITests` (생년월일 → D-Day → 배경화면 공유 시트). `SHOT_DIR` 환경 변수로 스크린샷 저장
+
+**종료:** MT-2.x 통과 (MT-2.6 단축어 실행은 Phase 8 수동 확인)
 
 ## Phase 4 — 기록 (FR-4)
 - [ ] `Contribution.grid`(53주 × 7일, 주 시작 요일 반영), `MonthStats`
