@@ -63,13 +63,18 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 **기본 테스트:** T-4.1 그리드 마지막 칸이 오늘이 포함된 주 / T-4.2 주 시작 월요일일 때 첫 행이 월요일 / T-4.3 농도 단계 경계값 / T-4.4 월 달성률(생성일 이전 날짜 제외)
 **종료:** MT-4.x 통과
 
-## Phase 5 — 위젯 (FR-5)
-- [ ] 공용 타임라인 프로바이더(자정 갱신)
-- [ ] 위젯 4종, `ToggleHabitIntent` 버튼 — IC-7
-- [ ] 잔디 위젯 `AppIntentConfiguration` + `HabitEntity` 쿼리
-- [ ] 앱의 모델 변경 지점에서 `reloadAllTimelines()`
+## Phase 5 — 위젯 (FR-5) ✅
+- [x] 공용 타임라인 프로바이더(자정 갱신)
+- [x] 위젯 4종, `ToggleHabitIntent` 버튼 — IC-7
+- [x] 잔디 위젯 `AppIntentConfiguration` + `HabitEntity` 쿼리
+- [x] 앱의 모델 변경 지점에서 `reloadAllTimelines()`
 
-**기본 테스트:** 위젯 타깃 빌드 / T-5.1 `HabitEntity` 쿼리가 보관된 습관 제외
+- [x] 앱 복귀 시 새 ModelContext로 교체 (위젯이 바꾼 기록을 앱이 읽도록)
+- [x] 위젯 화면을 `Shared/WidgetViews.swift`로 분리, 디버그 전용 `-widgetGallery YES` 미리보기
+
+**기본 테스트:** 위젯 타깃 빌드 / T-5.1 `HabitEntity` 쿼리가 보관된 습관 제외 / T-5.2 `ToggleHabitIntent.perform()`이 공유 저장소에 기록
+
+> 참고: 앱 안 미리보기의 `Button(intent:)`는 인텐트를 실행하지 않아 UI 자동화 대상에서 제외. 위젯 체크(MT-5.2)는 홈 화면에서 수동 확인
 **종료:** MT-5.x 통과
 
 ## Phase 6 — 설정 (FR-6)
@@ -95,7 +100,7 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 ## 상태 (Handoff)
 | 항목 | 내용 |
 |---|---|
-| 완료 | 문서 4종 |
-| 다음 | Phase 0 |
-| 막힌 점 | GitHub 인증 대기 중 (DC-5). 인증 전 커밋은 로컬에 보관 |
+| 완료 | 문서 4종, Phase 0~5 |
+| 다음 | Phase 6 설정 |
+| 막힌 점 | 없음 (GitHub 인증 완료, 단계별 push 중) |
 | 최신 커밋 | (없음) |
