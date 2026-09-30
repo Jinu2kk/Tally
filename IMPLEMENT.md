@@ -56,9 +56,9 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 
 **종료:** MT-2.x 통과 (MT-2.6 단축어 실행은 Phase 8 수동 확인)
 
-## Phase 4 — 기록 (FR-4)
-- [ ] `Contribution.grid`(53주 × 7일, 주 시작 요일 반영), `MonthStats`
-- [ ] `StatsView`: 요약 숫자, 전체 잔디, 습관별 잔디, 월 달력
+## Phase 4 — 기록 (FR-4) ✅
+- [x] `Contribution.grid`(53주 × 7일, 주 시작 요일 반영), `MonthStats`
+- [x] `StatsView`: 요약 숫자, 전체 잔디, 습관별 잔디, 월 달력
 
 **기본 테스트:** T-4.1 그리드 마지막 칸이 오늘이 포함된 주 / T-4.2 주 시작 월요일일 때 첫 행이 월요일 / T-4.3 농도 단계 경계값 / T-4.4 월 달성률(생성일 이전 날짜 제외)
 **종료:** MT-4.x 통과
