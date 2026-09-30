@@ -5,11 +5,11 @@
 ## 공통 명령
 ```bash
 # 빌드
-xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.0' -derivedDataPath build build
+xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' -derivedDataPath build build
 # 단위 테스트
-xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.0' -derivedDataPath build test
+xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' -derivedDataPath build test
 ```
-**모든 Phase 공통 종료 조건:** 빌드 성공, Swift 경고 0, 그때까지의 테스트 통과, git 커밋.
+**모든 Phase 공통 종료 조건:** 빌드 성공, Swift 경고 0, 그때까지의 테스트 통과, git 커밋 + `git push origin main`.
 
 ---
 
@@ -91,5 +91,5 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 |---|---|
 | 완료 | 문서 4종 |
 | 다음 | Phase 0 |
-| 막힌 점 | GitHub 저장소 인증 없음 → push는 사용자 몫 (DC-5) |
+| 막힌 점 | GitHub 인증 대기 중 (DC-5). 인증 전 커밋은 로컬에 보관 |
 | 최신 커밋 | (없음) |

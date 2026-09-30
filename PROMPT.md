@@ -10,7 +10,7 @@
 당신은 SwiftUI와 SwiftData에 능숙한 iOS 시니어 개발자입니다.
 App Store의 **「데일리(Daily)」 앱(Pacifiq, id6737768320)**과 **기능은 같지만 디자인이 다른** iOS 앱을 처음부터 만드세요.
 
-- 저장소: `https://github.com/Jinu2kk/calendar`
+- 저장소: `https://github.com/Jinu2kk/Tally`
 - 앱 이름(가칭): **Tally**
 - 결과물: Xcode에서 바로 열어 시뮬레이터로 실행할 수 있는 프로젝트 + README
 
@@ -156,4 +156,4 @@ README.md  .gitignore
 - [ ] 디자인 콘셉트: "종이 수첩과 잉크"로 진행해도 되는지
 - [ ] 번들 ID 접두어 `com.jinu2kk` 사용 여부
 - [ ] iCloud 동기화와 인앱 결제는 이번 범위에서 빼도 되는지
-- [ ] 저장소 `Jinu2kk/calendar` 접근 방법: 현재 공개 주소로는 404가 나옵니다(비공개이거나 아직 없는 저장소로 보임). 푸시는 직접 하실지, 인증을 설정해 주실지
+- [x] 저장소: `Jinu2kk/Tally`로 새로 생성됨. 기능 단위로 커밋하고 push

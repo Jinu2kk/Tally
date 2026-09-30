@@ -17,8 +17,8 @@ App Store 「데일리(Daily)」(Pacifiq, id6737768320)와 **같은 기능**을 
 | C-2 | SwiftUI, SwiftData, WidgetKit, App Intents, UserNotifications만 사용. 외부 라이브러리 금지 |
 | C-3 | 번들 ID `com.jinu2kk.tally`, 위젯 `com.jinu2kk.tally.widget`, App Group `group.com.jinu2kk.tally` |
 | C-4 | 한국어 UI. 문자열은 이후 다국어 확장이 가능한 형태로 작성 |
-| C-5 | 저장소 `github.com/Jinu2kk/calendar`. 비밀 값(토큰, 인증서)은 git에 넣지 않음 |
-| C-6 | 로컬 환경: Xcode 27, iOS 17.0 시뮬레이터 런타임(iPhone 15 Pro)에서 검증 |
+| C-5 | 저장소 `github.com/Jinu2kk/Tally`. 비밀 값(토큰, 인증서)은 git에 넣지 않음 |
+| C-6 | 로컬 환경: Xcode 27, iOS 17.0 시뮬레이터 런타임(iPhone 15)에서 검증 |
 
 ## 4. 기능 요구사항
 

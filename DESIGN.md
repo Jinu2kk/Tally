@@ -9,7 +9,7 @@
 - [x] **DC-2 디자인 = "종이 수첩과 잉크".** 원본의 귀엽고 파스텔인 스타일과 반대 방향. 검증: MT-7.x 다크/라이트 점검
 - [x] **DC-3 번들 ID 접두어 = `com.jinu2kk`.** 검증: 빌드 설정 확인 (Phase 0 exit)
 - [x] **DC-4 iCloud 동기화와 인앱 결제 제외.** 모든 기능 무료. 모델은 CloudKit 호환으로 설계 (§4)
-- [x] **DC-5 저장소 push는 사용자가 직접.** 에이전트는 로컬 커밋과 `origin` 설정까지만. 인증 방법은 README "GitHub 인증"에 안내
+- [x] **DC-5 저장소 = `github.com/Jinu2kk/Tally`.** 기능(Phase) 단위로 커밋하고 바로 push. 인증은 `gh auth login` + `gh auth setup-git`(README "GitHub 인증"). 인증 전에는 로컬 커밋만 쌓고 인증 후 한꺼번에 push
 
 ### 구현 결정 (IC)
 - [x] **IC-1 프로젝트 형식:** 손으로 작성한 `.xcodeproj` + Xcode 16의 폴더 동기화 그룹(`PBXFileSystemSynchronizedRootGroup`). 파일을 추가해도 pbxproj를 고칠 필요가 없음. XcodeGen 등 외부 도구 불필요. 검증: `xcodebuild -list`
