@@ -13,25 +13,27 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 
 ---
 
-## Phase 0 — 뼈대
+## Phase 0 — 뼈대 ✅
 **진입:** 문서 4종 작성 완료
-- [ ] `.xcodeproj` (타깃: Tally, TallyWidget, TallyTests / 스킴: Tally) — IC-1, IC-2
-- [ ] Entitlements(App Group), 위젯 Info.plist, `.gitignore`
-- [ ] `Shared/`: Models, Persistence, AppSettings, Theme, DotGrid
-- [ ] `RootTabView` 탭 4개 + 설정 시트 자리
-- [ ] 위젯 번들 빈 껍데기 1개
-- [ ] 앱 아이콘 생성 스크립트 — IC-11
+- [x] `.xcodeproj` (타깃: Tally, TallyWidget, TallyTests / 스킴: Tally) — IC-1, IC-2
+- [x] Entitlements(App Group), 위젯 Info.plist, `.gitignore`
+- [x] `Shared/`: Models, Persistence, AppSettings, Theme, DotGrid
+- [x] `RootTabView` 탭 4개 + 설정 시트 자리
+- [x] 위젯 번들 빈 껍데기 1개
+- [x] 앱 아이콘 생성 스크립트 — IC-11
 
 **기본 테스트:** T-0.1 모델 인메모리 컨테이너 생성 / T-0.2 `SharedStore` 컨테이너 생성
 **종료:** 시뮬레이터에서 탭 4개가 보이고 배경이 종이색
 
-## Phase 1 — 습관 (FR-1)
-- [ ] `Calculations.Streaks`, `HabitActions`
-- [ ] `TodayView`: 주간 스트립, 습관 행, 탭/스와이프 토글, 순서 변경, 빈 상태
-- [ ] `HabitEditorView`: 이름, 이모지, 색, 목표 시간, 리마인더, 삭제/보관
-- [ ] `Reminders`
+## Phase 1 — 습관 (FR-1) ✅
+- [x] `Calculations.Streaks`, `HabitActions`
+- [x] `TodayView`: 주간 스트립, 습관 행, 탭/스와이프 토글, 순서 변경, 빈 상태
+- [x] `HabitEditorView`: 이름, 이모지, 색, 목표 시간, 리마인더, 삭제/보관
+- [x] `Reminders`
 
 **기본 테스트:** T-1.1 연속 3일 → 3 / T-1.2 오늘 미완료·어제까지 2일 → 2 / T-1.3 어제·오늘 미완료 → 0 / T-1.4 최장 기록 / T-1.5 월 경계·윤년 / T-1.6 같은 날 두 번 토글 → 기록 0개
+- [x] UI 테스트 `HabitFlowUITests` (MT-1.1~1.3 자동화) — IC-12
+
 **종료:** MT-1.x 통과
 
 ## Phase 2 — 우선순위 (FR-3)

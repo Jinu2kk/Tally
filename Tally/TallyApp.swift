@@ -15,6 +15,12 @@ struct TallyApp: App {
         .modelContainer(SharedStore.container)
     }
 
+    init() {
+        #if DEBUG
+        DemoSeed.runIfRequested(SharedStore.container)
+        #endif
+    }
+
     private var colorScheme: ColorScheme? {
         switch AppearanceMode(rawValue: appearance) ?? .system {
         case .system: nil

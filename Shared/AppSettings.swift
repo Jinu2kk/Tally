@@ -47,9 +47,16 @@ enum AppSettings {
     }
 
     /// 주 시작 요일 설정을 반영한 달력
-    static var calendar: Calendar {
+    static var calendar: Calendar { calendar(mondayFirst: weekStartsOnMonday) }
+
+    static func calendar(mondayFirst: Bool) -> Calendar {
         var cal = Calendar.current
-        cal.firstWeekday = weekStartsOnMonday ? 2 : 1
+        cal.firstWeekday = mondayFirst ? 2 : 1
         return cal
     }
+}
+
+extension Locale {
+    /// 날짜 표기 언어. 다국어 확장 시 .current로 바꾼다 (C-4)
+    static let app = Locale(identifier: "ko_KR")
 }

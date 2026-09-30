@@ -22,6 +22,7 @@
 - [x] **IC-8 배경화면:** `ImageRenderer`로 `WallpaperView`를 렌더링. 앱은 `ShareLink`, 단축어는 `MakeWallpaperIntent`가 `IntentFile`(PNG) 반환
 - [x] **IC-9 드래그 앤 드롭:** `TaskItem.id`의 UUID 문자열을 `String`(Transferable)로 전달하고 `dropDestination(for: String.self)`에서 조회
 - [x] **IC-10 테스트:** `TallyTests` 단위 테스트 타깃(호스트 앱 없음)에 `Shared/`를 포함해 순수 계산 함수를 검증. XCTest 사용
+- [x] **IC-12 UI 자동 검증:** `TallyUITests`(XCUITest) 타깃 추가. 실행 인자 `-uiTesting YES`면 메모리 저장소를 써서 테스트끼리 데이터가 섞이지 않음. 수동 체크리스트 중 자동화 가능한 항목(MT-1.x, MT-3.x 등)을 대신 검증. 디버그 전용 `-seedDemo YES|<습관 수>`로 시연·성능 데이터 생성
 - [x] **IC-11 앱 아이콘:** Swift 스크립트(`scripts/make_icon.swift`)로 1024px PNG 생성. 단일 크기 아이콘 사용
 
 ## 2. 아키텍처

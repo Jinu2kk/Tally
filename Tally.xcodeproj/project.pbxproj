@@ -18,6 +18,13 @@
 			remoteGlobalIDString = AA0000000000000000000602;
 			remoteInfo = TallyWidgetExtension;
 		};
+		AA0000000000000000000402 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0000000000000000000601;
+			remoteInfo = Tally;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +45,7 @@
 		AA0000000000000000000101 /* Tally.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tally.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0000000000000000000102 /* TallyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TallyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0000000000000000000103 /* TallyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TallyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0000000000000000000104 /* TallyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TallyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,6 +53,7 @@
 		AA0000000000000000000202 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; path = Shared; sourceTree = "<group>"; };
 		AA0000000000000000000203 /* TallyWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; path = TallyWidget; sourceTree = "<group>"; };
 		AA0000000000000000000204 /* TallyTests */ = {isa = PBXFileSystemSynchronizedRootGroup; path = TallyTests; sourceTree = "<group>"; };
+		AA0000000000000000000206 /* TallyUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; path = TallyUITests; sourceTree = "<group>"; };
 		AA0000000000000000000205 /* Config */ = {isa = PBXFileSystemSynchronizedRootGroup; path = Config; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -52,6 +61,7 @@
 		AA0000000000000000000701 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000702 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000703 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		AA0000000000000000000704 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -62,6 +72,7 @@
 				AA0000000000000000000202 /* Shared */,
 				AA0000000000000000000203 /* TallyWidget */,
 				AA0000000000000000000204 /* TallyTests */,
+				AA0000000000000000000206 /* TallyUITests */,
 				AA0000000000000000000205 /* Config */,
 				AA0000000000000000000012 /* Products */,
 			);
@@ -73,6 +84,7 @@
 				AA0000000000000000000101 /* Tally.app */,
 				AA0000000000000000000102 /* TallyWidgetExtension.appex */,
 				AA0000000000000000000103 /* TallyTests.xctest */,
+				AA0000000000000000000104 /* TallyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,6 +157,27 @@
 			productReference = AA0000000000000000000103 /* TallyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		AA0000000000000000000604 /* TallyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000905 /* Build configuration list for PBXNativeTarget "TallyUITests" */;
+			buildPhases = (
+				AA0000000000000000000804 /* Sources */,
+				AA0000000000000000000704 /* Frameworks */,
+				AA0000000000000000000814 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA0000000000000000000A02 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA0000000000000000000206 /* TallyUITests */,
+			);
+			name = TallyUITests;
+			productName = TallyUITests;
+			productReference = AA0000000000000000000104 /* TallyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -158,6 +191,7 @@
 					AA0000000000000000000601 = {CreatedOnToolsVersion = 16.0; };
 					AA0000000000000000000602 = {CreatedOnToolsVersion = 16.0; };
 					AA0000000000000000000603 = {CreatedOnToolsVersion = 16.0; };
+					AA0000000000000000000604 = {CreatedOnToolsVersion = 16.0; TestTargetID = AA0000000000000000000601; };
 				};
 			};
 			buildConfigurationList = AA0000000000000000000901 /* Build configuration list for PBXProject "Tally" */;
@@ -178,6 +212,7 @@
 				AA0000000000000000000601 /* Tally */,
 				AA0000000000000000000602 /* TallyWidgetExtension */,
 				AA0000000000000000000603 /* TallyTests */,
+				AA0000000000000000000604 /* TallyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -186,12 +221,14 @@
 		AA0000000000000000000811 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000812 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000813 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		AA0000000000000000000814 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AA0000000000000000000801 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000802 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		AA0000000000000000000803 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		AA0000000000000000000804 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -199,6 +236,11 @@
 			isa = PBXTargetDependency;
 			target = AA0000000000000000000602 /* TallyWidgetExtension */;
 			targetProxy = AA0000000000000000000401 /* PBXContainerItemProxy */;
+		};
+		AA0000000000000000000A02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0000000000000000000601 /* Tally */;
+			targetProxy = AA0000000000000000000402 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -384,6 +426,36 @@
 			};
 			name = Release;
 		};
+		AA0000000000000000000B41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinu2kk.tally.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tally;
+			};
+			name = Debug;
+		};
+		AA0000000000000000000B42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinu2kk.tally.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tally;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -419,6 +491,15 @@
 			buildConfigurations = (
 				AA0000000000000000000B31 /* Debug */,
 				AA0000000000000000000B32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000000000000000000905 /* Build configuration list for PBXNativeTarget "TallyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000B41 /* Debug */,
+				AA0000000000000000000B42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

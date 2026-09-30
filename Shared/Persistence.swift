@@ -6,7 +6,8 @@ enum SharedStore {
     static let schema = Schema([Habit.self, HabitLog.self, TaskItem.self, DDay.self])
 
     /// 앱과 위젯이 함께 쓰는 컨테이너 (IC-3)
-    static let container: ModelContainer = makeContainer()
+    /// UI 테스트는 실행 인자 `-uiTesting YES`로 메모리 저장소를 쓴다
+    static let container: ModelContainer = makeContainer(inMemory: UserDefaults.standard.bool(forKey: "uiTesting"))
 
     /// App Group 컨테이너 안의 저장소 위치. 사용할 수 없으면 nil (서명 없는 빌드 등)
     static var groupStoreURL: URL? {
