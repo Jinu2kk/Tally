@@ -17,6 +17,10 @@ struct TallyApp: App {
 
     init() {
         #if DEBUG
+        if UserDefaults.standard.bool(forKey: "uiTesting") {
+            // UI 테스트마다 설정을 비운다
+            AppSettings.store.removePersistentDomain(forName: SharedStore.appGroupID)
+        }
         DemoSeed.runIfRequested(SharedStore.container)
         #endif
     }

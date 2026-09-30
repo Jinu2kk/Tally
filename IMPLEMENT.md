@@ -36,11 +36,13 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 
 **종료:** MT-1.x 통과
 
-## Phase 2 — 우선순위 (FR-3)
-- [ ] `MatrixView` 2×2, `QuadrantCard`, 드래그 앤 드롭 — IC-9
-- [ ] 목록 보기, 완료 숨기기, `TaskEditorView`
+## Phase 2 — 우선순위 (FR-3) ✅
+- [x] `MatrixView` 2×2, `QuadrantCard`, 드래그 앤 드롭 — IC-9
+- [x] 목록 보기, 완료 숨기기, `TaskEditorView`
 
 **기본 테스트:** T-2.1 `Quadrant` rawValue 왕복, 이름/설명
+- [x] UI 테스트 `MatrixFlowUITests` (추가 → 완료 → 숨기기 → 드래그 이동 → 목록 보기 스와이프 삭제)
+
 **종료:** MT-3.x 통과
 
 ## Phase 3 — 시간 (FR-2)

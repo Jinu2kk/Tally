@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct RootTabView: View {
-    @State private var tab: Tab = .today
+    /// 디버그·스크린샷용: 실행 인자 `-tab time|matrix|stats`
+    @State private var tab: Tab = Tab(rawValue: UserDefaults.standard.string(forKey: "tab") ?? "") ?? .today
 
-    enum Tab: Hashable { case today, time, matrix, stats }
+    enum Tab: String, Hashable { case today, time, matrix, stats }
 
     var body: some View {
         TabView(selection: $tab) {
