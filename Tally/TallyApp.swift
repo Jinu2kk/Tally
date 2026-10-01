@@ -25,11 +25,17 @@ struct TallyApp: App {
     var body: some Scene {
         WindowGroup {
             root
+                .task {
+                    #if DEBUG
+                    await DemoEvents.runIfRequested()
+                    #endif
+                }
                 .tint((ThemeTint(rawValue: tintRaw) ?? .tomato).color)
                 .preferredColorScheme(colorScheme)
         }
         .modelContainer(SharedStore.container)
         .modelContext(context)
+        .environment(CalendarStore.shared)
         .onChange(of: scenePhase) { old, new in
             if new == .active, old == .background {
                 context = Self.freshContext()

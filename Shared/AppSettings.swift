@@ -10,6 +10,21 @@ enum SettingsKey {
     static let hideDoneTasks = "hideDoneTasks"
     static let matrixListMode = "matrixListMode"
     static let wallpaperKind = "wallpaperKind"
+    // 달력 (FR-7)
+    static let hiddenCalendars = "hiddenCalendars"        // [String] calendarIdentifier
+    static let emphasizeHoliday = "emphasizeHoliday"
+    static let emphasizeSaturday = "emphasizeSaturday"
+    static let emphasizeSunday = "emphasizeSunday"
+    static let hideAdjacentDays = "hideAdjacentDays"
+    static let todayColor = "todayColor"                  // hex, "" = 테마 색
+    static let calendarBackground = "calendarBackground"  // CalendarBackgroundKind.rawValue
+    static let backgroundColor = "backgroundColor"        // hex (단색)
+    static let backgroundPattern = "backgroundPattern"    // 셔플 패턴 번호
+    static let backgroundOpacity = "backgroundOpacity"    // 0...1
+    static let backgroundBlur = "backgroundBlur"          // 0...20
+    static let wallpaperScale = "wallpaperScale"          // 0.7...1
+    static let wallpaperWeekly = "wallpaperWeekly"
+    static let statsPeriod = "statsPeriod"                // CalendarPeriod.rawValue
 }
 
 enum AppearanceMode: String, CaseIterable, Identifiable {

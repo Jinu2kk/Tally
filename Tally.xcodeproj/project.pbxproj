@@ -304,6 +304,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Tally;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "기본 캘린더의 일정을 달력에 보여 주고, 새 일정을 기본 캘린더에 저장합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "배경화면 이미지를 사진 앱에 저장합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -334,6 +335,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Tally;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "기본 캘린더의 일정을 달력에 보여 주고, 새 일정을 기본 캘린더에 저장합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "배경화면 이미지를 사진 앱에 저장합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
