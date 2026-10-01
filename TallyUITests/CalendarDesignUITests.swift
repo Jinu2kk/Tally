@@ -1,6 +1,6 @@
 import XCTest
 
-/// MT-8.7, 8.10(셔플·제거), 8.11, 8.12 자동화
+/// MT-8.7, 8.10(셔플·제거), 8.11, 8.12, 8.15 자동화
 final class CalendarDesignUITests: XCTestCase {
     func testDesignAndWallpaperSheets() {
         let app = XCUIApplication()
@@ -27,7 +27,12 @@ final class CalendarDesignUITests: XCTestCase {
 
         // MT-8.12 배경화면 시트
         app.buttons["배경화면 만들기"].tap()
-        XCTAssertTrue(app.images["배경화면 미리보기"].waitForExistence(timeout: 5) || app.otherElements["배경화면 미리보기"].exists)
+        XCTAssertTrue(app.descendants(matching: .any)["잠금 화면 미리보기"].firstMatch.waitForExistence(timeout: 5))
+        // MT-8.15 세로 위치: 슬라이더를 내린 뒤 '자동'으로 되돌린다
+        let position = app.descendants(matching: .any)["세로 위치"].firstMatch
+        XCTAssertTrue(position.exists)
+        position.swipeDown()
+        app.buttons["세로 위치 자동"].tap()
         app.buttons["주간"].tap()
         XCTAssertTrue(app.buttons["이미지 저장 · 공유"].waitForExistence(timeout: 5))
         saveShot("wallpaper-sheet")

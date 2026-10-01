@@ -20,7 +20,6 @@ struct CalendarTabView: View {
     @AppStorage(SettingsKey.backgroundOpacity, store: AppSettings.store) private var bgOpacity = 0.7
     @AppStorage(SettingsKey.backgroundBlur, store: AppSettings.store) private var bgBlur = 0.0
     @AppStorage(SettingsKey.wallpaperScale, store: AppSettings.store) private var scale = 0.95
-    @AppStorage(SettingsKey.wallpaperOffset, store: AppSettings.store) private var offset = -1.0
     @AppStorage(SettingsKey.statsPeriod, store: AppSettings.store) private var periodRaw = CalendarPeriod.month.rawValue
 
     @State private var month = Date.now
@@ -94,16 +93,11 @@ struct CalendarTabView: View {
             let snapshot = CalendarSnapshot.make(month: month, events: events, holidays: holidays, calendar: calendar)
 
             // 위 버튼줄(약 62)과 아래 통계줄(약 70)을 뺀 높이에 맞춘다
-            let available = geo.size.height - 62 - 70 - 16
-            // 디자인에서 정한 세로 위치(화면 높이 비율)를 이 화면 좌표로 옮긴다. 자동이면 기존 배치
-            let screenH = CalendarWallpaper.screen.size.height
-            let topGap: CGFloat? = offset >= 0
-                ? min(max(8, screenH * offset - geo.frame(in: .global).minY - 62), available * 0.6)
-                : nil
-            let gridHeight = (available - (topGap.map { $0 - 8 } ?? 0)) * scale
+            // 디자인의 크기 조절만 따른다. 세로 위치는 잠금화면 시계·위젯을 피하는 값이라 배경화면에만 쓴다
+            let gridHeight = (geo.size.height - 62 - 70 - 16) * scale
             VStack(spacing: 0) {
                 topBar(fg: fg)
-                if let topGap { Color.clear.frame(height: topGap) } else { Spacer(minLength: 8) }
+                Spacer(minLength: 8)
                 ZStack(alignment: .topTrailing) {
                     MonthCalendarGrid(snapshot: snapshot, style: style, width: .init(value: width * scale), maxHeight: gridHeight) { day in
                         selectedDay = calendar.startOfDay(for: day)

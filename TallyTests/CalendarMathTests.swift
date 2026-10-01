@@ -144,3 +144,19 @@ final class CalendarSnapshotTests: XCTestCase {
         XCTAssertEqual(s.lanes, 7)
     }
 }
+
+final class CalendarStyleTests: XCTestCase {
+    // 배경화면 세로 위치: 자동(-1)이면 월간 0.345 · 주간 0.62, 직접 정하면 그 값
+    func testWallpaperTop() {
+        var style = CalendarStyle()
+        XCTAssertEqual(style.wallpaperOffset, -1)
+        XCTAssertEqual(style.wallpaperTop(weeks: 5), 0.345)
+        XCTAssertEqual(style.wallpaperTop(weeks: 1), 0.62)
+        style.wallpaperOffset = 0.5
+        XCTAssertEqual(style.wallpaperTop(weeks: 5), 0.5)
+        XCTAssertEqual(style.wallpaperTop(weeks: 1), 0.5)
+        // 자동 값은 슬라이더 범위 안에 있어야 손잡이가 달력 윗변에 맞는다
+        XCTAssertTrue(CalendarStyle.offsetRange.contains(0.345))
+        XCTAssertTrue(CalendarStyle.offsetRange.contains(0.62))
+    }
+}

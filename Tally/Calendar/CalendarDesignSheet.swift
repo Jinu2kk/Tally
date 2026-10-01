@@ -49,20 +49,22 @@ struct VerticalSlider: View {
     var body: some View {
         GeometryReader { g in
             let h = g.size.height
+            let knob: CGFloat = 28
             let t = (value - range.lowerBound) / (range.upperBound - range.lowerBound)
             ZStack(alignment: .top) {
                 Capsule().fill(Ink.empty).frame(width: 6)
-                Capsule().fill(Color.accentColor).frame(width: 6, height: max(0, CGFloat(t) * h))
+                Capsule().fill(Color.accentColor).frame(width: 6, height: max(0, CGFloat(t) * (h - knob) + knob / 2))
                 Circle().fill(.white)
-                    .frame(width: 28, height: 28)
+                    .frame(width: knob, height: knob)
                     .shadow(color: .black.opacity(0.2), radius: 3, y: 1)
-                    .offset(y: CGFloat(t) * (h - 28))
+                    .offset(y: CGFloat(t) * (h - knob))
             }
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
             .gesture(DragGesture(minimumDistance: 0)
                 .onChanged { v in
-                    let p = min(1, max(0, Double(v.location.y / h)))
+                    // 손잡이 가운데가 손가락 위치에 오도록: 손잡이가 움직이는 구간(h - knob) 기준으로 환산
+                    let p = min(1, max(0, Double((v.location.y - knob / 2) / max(1, h - knob))))
                     value = range.lowerBound + p * (range.upperBound - range.lowerBound)
                 }
                 .onEnded { _ in onEditingEnded() })

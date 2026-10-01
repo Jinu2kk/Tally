@@ -99,9 +99,9 @@ enum CalendarBackgroundStore {
     /// 배경화면 렌더(ImageRenderer)에서도 결과가 달라서 CoreImage로 처리한다
     static func blurred(_ image: UIImage, radius: Double) -> UIImage {
         guard radius > 0.5 else { return image }
-        let small = image.resized(maxSide: 1200)
-        let key = "\(ObjectIdentifier(image).hashValue)-\(Int(radius.rounded()))"
+        let key = "\(ObjectIdentifier(image).hashValue)-\(image.size.width)x\(image.size.height)-\(Int(radius.rounded()))"
         if let c = blurCache, c.key == key { return c.image }
+        let small = image.resized(maxSide: 1200)
         guard let input = CIImage(image: small) else { return image }
         let f = CIFilter.gaussianBlur()
         f.inputImage = input.clampedToExtent()

@@ -146,6 +146,7 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 - 단축어 `MakeCalendarWallpaperIntent`: 메타데이터에 `openAppWhenRun = false`, 출력 파일로 등록 확인. `perform()` 경로를 디버그 훅으로 실행해 PNG 생성 확인
 - `ShareLink` 크래시 발견 → UIKit 공유 시트로 교체 (IC-20)
 - UI 테스트 `CalendarDesignUITests` 추가
+- 후속: 배경화면 세로 위치(세로 슬라이더·자동), 잠금화면 요소 자리를 겹친 미리보기, 디자인·공유 시트 공용 편집기, 사진 블러 CoreImage 처리(IC-21), 달력 탭에 크기 반영. 단위 테스트 `CalendarStyleTests`, 수동 MT-8.15
 
 ---
 
@@ -153,6 +154,6 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 | 항목 | 내용 |
 |---|---|
 | 완료 | Phase 0~11. 달력(기본 캘린더 연동)과 잠금화면 배경화면 자동화 포함 |
-| 다음 | 실기기에서 MT-8.14(단축어 자동화로 잠금화면 지정)와 위젯·알림 항목 확인 |
+| 다음 | 실기기에서 MT-8.14(단축어 자동화로 잠금화면 지정), MT-8.15(배경화면 세로 위치)와 위젯·알림 항목 확인 |
 | 막힌 점 | 없음 |
 | 최신 커밋 | `git log -1` |

@@ -34,8 +34,9 @@
 - [x] **IC-16 공휴일 판정:** 캘린더 제목에 '휴일'·'공휴일'·'holiday'(대소문자 무시)가 포함되면 공휴일 캘린더. 그 캘린더의 일정이 있는 날을 공휴일로 본다. 검증: T-9.10
 - [x] **IC-18 앱 화면과 배경화면은 같은 뷰로 그린다.** `MonthCalendarGrid`(일정·설정 값만 받는 순수 SwiftUI 뷰)를 앱 화면과 `CalendarWallpaper.render`가 함께 쓴다. 배경화면은 `ImageRenderer`로 기기 화면 크기(포인트 × 배율)에 그린다. 위쪽 약 35%는 잠금화면 시계·위젯 자리로 비운다. 검증: T-11.x, MT-8.12, MT-8.14
 - [x] **IC-19 단축어 동작 `MakeCalendarWallpaperIntent`:** `openAppWhenRun = false`. 매개변수: 형태(월간/주간, 기본=설정값). 출력: `IntentFile`(PNG). EventKit 권한이 없으면 `CalendarWallpaperError.noAccess`로 실패. 앱 프로세스가 백그라운드로 실행되어 처리. 검증: MT-8.14
+- [x] **IC-21 사진 블러는 CoreImage.** SwiftUI `.blur`는 사진 가장자리를 투명·검게 만들고 `ImageRenderer` 결과도 화면과 달랐다. 사진을 긴 변 1200px로 줄여 가우시안 블러를 입히고(반경은 393pt 화면 기준으로 픽셀 환산) 결과 1장을 캐시한다. 패턴 배경은 `.blur` + 확대로 가장자리 번짐을 화면 밖으로 보낸다. 검증: MT-8.10
 - [x] **IC-20 공유는 UIKit 공유 시트.** SwiftUI `ShareLink`는 iOS 17.0 시뮬레이터에서 여러 화면이 공유 항목을 동시에 등록할 때 CoreTransferable 내부 크래시가 재현됨(2026-10-01). 버튼을 누를 때만 `UIActivityViewController`로 PNG 파일 URL을 공유한다 (`Tally/ShareSheet.swift`). 검증: CalendarDesignUITests, TimeFlowUITests
-- [x] **IC-17 배경 저장:** 선택한 사진은 App Group 컨테이너의 `calendar-background.jpg`(긴 변 2400px로 줄여 JPEG)로 저장. 설정 값(종류, 불투명도, 블러, 강조, 오늘 색, 미리보기 숨김, 배경화면 크기·월간/주간)은 App Group UserDefaults. 셔플 패턴은 코드로 그린다(외부 이미지 없음)
+- [x] **IC-17 배경 저장:** 선택한 사진은 App Group 컨테이너의 `calendar-background.jpg`(긴 변 2400px로 줄여 JPEG)로 저장. 설정 값(종류, 불투명도, 블러, 강조, 오늘 색, 미리보기 숨김, 배경화면 크기·월간/주간·세로 위치)은 App Group UserDefaults. 세로 위치 `wallpaperOffset`은 달력 윗변의 화면 높이 비율이고 -1이면 자동(월간 0.345, 주간 0.62). 셔플 패턴은 코드로 그린다(외부 이미지 없음)
 
 ## 2. 아키텍처
 
