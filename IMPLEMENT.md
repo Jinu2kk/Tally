@@ -98,18 +98,24 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 - 성능: `-seedDemo 50`(습관 50개, 기록 약 11,700건) 후 기록 탭이 실행 3초 안에 표시. 시드 생성 자체는 약 28초(디버그 전용)
 - 다크 모드: 오늘·시간·우선순위·기록 탭 스크린샷 확인, 글자 대비 문제 없음
 
-## Phase 8 — 통합 테스트 (Integration)
-- [ ] 클린 빌드 + 전체 테스트
-- [ ] 시뮬레이터에 설치 → MANUAL_TEST_CHECKLIST 전체 수행, 결과 기록
-- [ ] 앱 ↔ 위젯 데이터 일치, 단축어 동작 확인
-- [ ] README 작성(실행 방법, 구조, GitHub 인증 안내), 최종 커밋
+## Phase 8 — 통합 테스트 (Integration) ✅
+- [x] 클린 빌드 + 전체 테스트
+- [x] 시뮬레이터에 설치 → MANUAL_TEST_CHECKLIST 전체 수행, 결과 기록
+- [x] 앱 ↔ 위젯 데이터 일치, 단축어 동작 확인
+- [x] README 작성(실행 방법, 구조, GitHub 인증 안내), 최종 커밋
+
+**결과 (2026-10-01)**
+- 클린 빌드 후 전체 테스트: 단위 32개 + UI 6개 통과
+- App Group 컨테이너에 `Tally.store` 생성 확인 → 앱과 위젯이 같은 저장소 사용 (IC-3)
+- UI 테스트 추가: `HabitLifecycleUITests`(어제 체크, 보관/꺼내기, 삭제), `StatsFlowUITests`(습관 선택, 연속 일치, 월 이동)
+- 수동 체크리스트: 통과 28 / 실패 0 / 미수행 9. 미수행은 홈 화면 위젯, 실시간 알림, 단축어 앱처럼 기기 조작이 필요한 항목
 
 ---
 
 ## 상태 (Handoff)
 | 항목 | 내용 |
 |---|---|
-| 완료 | 문서 4종, Phase 0~7 |
-| 다음 | Phase 8 통합 테스트 |
-| 막힌 점 | 없음 (GitHub 인증 완료, 단계별 push 중) |
-| 최신 커밋 | (없음) |
+| 완료 | 문서 4종, Phase 0~8 전부 |
+| 다음 | MANUAL_TEST_CHECKLIST의 미수행 9건을 기기(또는 시뮬레이터 홈 화면)에서 확인. 출시 시 iCloud 동기화와 다국어 검토 |
+| 막힌 점 | 없음 |
+| 최신 커밋 | 이 문서를 포함한 커밋 (`git log -1`) |
