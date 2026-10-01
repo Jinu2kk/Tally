@@ -20,7 +20,9 @@ struct CalendarSnapshot {
             return CalendarSnapshot(month: today, weeks: [row], events: events, holidays: holidays, today: today, calendar: calendar, lanes: 7)
         }
         let grid = CalendarMath.monthGrid(for: month, calendar: calendar)
+        // 그 달 날짜가 하나도 없는 주는 뺀다 (보통 5주, 때때로 4·6주)
         let weeks = stride(from: 0, to: grid.count, by: 7).map { Array(grid[$0..<$0 + 7]) }
+            .filter { w in w.contains { calendar.isDate($0, equalTo: month, toGranularity: .month) } }
         return CalendarSnapshot(month: month, weeks: weeks, events: events, holidays: holidays, today: today, calendar: calendar)
     }
 

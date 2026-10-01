@@ -125,3 +125,22 @@ final class CalendarMathTests: XCTestCase {
                        [cal.startOfDay(for: TS.date(2026, 10, 3))])
     }
 }
+
+final class CalendarSnapshotTests: XCTestCase {
+    // T-10.1 필요한 주만: 2026-10 → 5주, 2026-02(일요일 시작, 28일) → 4주, 2026-08 → 6주
+    func testWeeksTrimmed() {
+        let cal = TS.calendar()
+        XCTAssertEqual(CalendarSnapshot.make(month: TS.date(2026, 10, 1), events: [], holidays: [], calendar: cal).weeks.count, 5)
+        XCTAssertEqual(CalendarSnapshot.make(month: TS.date(2026, 2, 1), events: [], holidays: [], calendar: cal).weeks.count, 4)
+        XCTAssertEqual(CalendarSnapshot.make(month: TS.date(2026, 8, 1), events: [], holidays: [], calendar: cal).weeks.count, 6)
+    }
+
+    // T-10.2 주간: 오늘이 든 한 주, 줄 수 7
+    func testWeeklySnapshot() {
+        let cal = TS.calendar()
+        let s = CalendarSnapshot.make(month: .now, events: [], holidays: [], today: TS.date(2026, 10, 14), calendar: cal, weekly: true)
+        XCTAssertEqual(s.weeks.count, 1)
+        XCTAssertTrue(s.weeks[0].contains(cal.startOfDay(for: TS.date(2026, 10, 14))))
+        XCTAssertEqual(s.lanes, 7)
+    }
+}

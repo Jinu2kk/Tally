@@ -152,6 +152,7 @@ private struct WallpaperCard: View {
     @AppStorage(SettingsKey.birthDate, store: AppSettings.store) private var birthRaw: Double = 0
     @State private var dark = false
     @State private var image: UIImage?
+    @State private var fileURL: URL?
 
     private var kind: WallpaperKind { WallpaperKind(rawValue: kindRaw) ?? .year }
 
@@ -176,9 +177,8 @@ private struct WallpaperCard: View {
                     }
                     .pickerStyle(.segmented)
                     Toggle("어두운 배경", isOn: $dark).font(.subheadline)
-                    if let image {
-                        ShareLink(item: Image(uiImage: image),
-                                  preview: SharePreview("Tally 배경화면", image: Image(uiImage: image))) {
+                    if image != nil, let fileURL {
+                        Button { ShareSheet.present([fileURL]) } label: {
                             Label("저장 · 공유", systemImage: "square.and.arrow.down")
                                 .font(.subheadline.weight(.bold))
                                 .padding(.horizontal, 14).padding(.vertical, 8)
@@ -199,6 +199,7 @@ private struct WallpaperCard: View {
         let screen = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.screen
         image = Wallpaper.render(kind: kind, size: screen?.bounds.size ?? Wallpaper.defaultSize,
                                  scale: screen?.scale ?? 3, dark: dark)
+        fileURL = image?.temporaryPNG(named: "Tally 배경화면")
     }
 }
 

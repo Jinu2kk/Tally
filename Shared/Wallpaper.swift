@@ -82,6 +82,15 @@ struct WallpaperView: View {
     }
 }
 
+extension UIImage {
+    /// 공유용 임시 PNG 파일. Image를 직접 공유하면 iOS 17.0에서 CoreTransferable 예외가 나서 파일 URL로 공유한다
+    func temporaryPNG(named name: String) -> URL? {
+        let url = FileManager.default.temporaryDirectory.appending(path: "\(name).png")
+        guard let data = pngData(), (try? data.write(to: url, options: .atomic)) != nil else { return nil }
+        return url
+    }
+}
+
 enum Wallpaper {
     /// 기본 크기: 6.1인치 iPhone (393×852pt @3x)
     static let defaultSize = CGSize(width: 393, height: 852)

@@ -70,7 +70,11 @@ struct CalendarTabView: View {
             }
             .ignoresSafeArea()
         }
-        .onAppear { reloadPhoto(); store.reload() }
+        .onAppear {
+            reloadPhoto()
+            store.reload()
+            CalendarWallpaper.rememberScreen((UIApplication.shared.connectedScenes.first as? UIWindowScene)?.screen)
+        }
         .onChange(of: bgKind) { reloadPhoto() }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in store.reload() }
     }

@@ -5,6 +5,30 @@ import UIKit
 /// 디버그 전용: 실행 인자 `-seedEvents YES`면 시뮬레이터 기본 캘린더에 예시 캘린더·일정을 만든다.
 /// 이미 만든 데모 캘린더('Tally 데모 · …')는 지우고 다시 만든다. 다른 캘린더는 건드리지 않는다
 enum DemoEvents {
+    /// 디버그 훅: `-backgroundPhotoPath <경로>` 그 이미지를 배경 사진으로, `-exportWallpaper <경로>` 배경화면 PNG 저장
+    @MainActor
+    static func runHooks() async {
+        await runIfRequested()
+        let d = UserDefaults.standard
+        if let path = d.string(forKey: "backgroundPhotoPath"), let img = UIImage(contentsOfFile: path) {
+            try? CalendarBackgroundStore.save(img)
+            AppSettings.store.set(CalendarBackgroundKind.photo.rawValue, forKey: SettingsKey.calendarBackground)
+        }
+        if let out = d.string(forKey: "runWallpaperIntent") {
+            // 단축어 동작의 perform 경로를 그대로 실행
+            let intent = MakeCalendarWallpaperIntent()
+            intent.form = .monthly
+            if let result = try? await intent.perform(), let file = result.value {
+                try? file.data.write(to: URL(fileURLWithPath: out))
+            }
+        }
+        if let out = d.string(forKey: "exportWallpaper") {
+            CalendarWallpaper.rememberScreen((UIApplication.shared.connectedScenes.first as? UIWindowScene)?.screen)
+            let img = try? CalendarWallpaper.render()
+            try? img?.pngData()?.write(to: URL(fileURLWithPath: out))
+        }
+    }
+
     @MainActor
     static func runIfRequested() async {
         guard UserDefaults.standard.bool(forKey: "seedEvents") else { return }

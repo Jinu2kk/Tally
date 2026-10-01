@@ -27,7 +27,7 @@ struct TallyApp: App {
             root
                 .task {
                     #if DEBUG
-                    await DemoEvents.runIfRequested()
+                    await DemoEvents.runHooks()
                     #endif
                 }
                 .tint((ThemeTint(rawValue: tintRaw) ?? .tomato).color)
