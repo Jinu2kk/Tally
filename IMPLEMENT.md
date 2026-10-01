@@ -86,11 +86,17 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 **기본 테스트:** T-6.1 설정 기본값 / 전체 빌드
 **종료:** MT-6.x 통과
 
-## Phase 7 — 테스트 강화 (Hardening)
-- [ ] 경계값 테스트 보강: 시간대(서울/뉴욕), 기대수명 1·120, 생년월일이 미래, 습관 0개
-- [ ] 다크 모드 전 화면 스크린샷 점검 (NFR-4)
-- [ ] 성능: 습관 50개 × 365일 시드 데이터로 탭 전환 확인 (NFR-3). 디버그 전용 시드 기능 `-seedDemo` 실행 인자
-- [ ] Swift 경고 0 재확인
+## Phase 7 — 테스트 강화 (Hardening) ✅
+- [x] 경계값 테스트 보강: 시간대(서울/뉴욕), 기대수명 1·120, 생년월일이 미래, 습관 0개
+- [x] 다크 모드 전 화면 스크린샷 점검 (NFR-4)
+- [x] 성능: 습관 50개 × 365일 시드 데이터로 탭 전환 확인 (NFR-3). 디버그 전용 시드 기능 `-seedDemo` 실행 인자
+- [x] Swift 경고 0 재확인
+
+**결과 (2026-10-01)**
+- `EdgeCaseTests` 6건 추가: 뉴욕 서머타임 경계 streak·연중 일수, 기대수명 0/1/120, 미래 생년월일, 습관 0개, 잘못된 hex
+- 클린 빌드 Swift 경고 0. 남는 1줄은 UI 테스트 타깃의 `appintentsmetadataprocessor` 안내(코드 경고 아님)
+- 성능: `-seedDemo 50`(습관 50개, 기록 약 11,700건) 후 기록 탭이 실행 3초 안에 표시. 시드 생성 자체는 약 28초(디버그 전용)
+- 다크 모드: 오늘·시간·우선순위·기록 탭 스크린샷 확인, 글자 대비 문제 없음
 
 ## Phase 8 — 통합 테스트 (Integration)
 - [ ] 클린 빌드 + 전체 테스트
@@ -103,7 +109,7 @@ xcodebuild -project Tally.xcodeproj -scheme Tally -destination 'platform=iOS Sim
 ## 상태 (Handoff)
 | 항목 | 내용 |
 |---|---|
-| 완료 | 문서 4종, Phase 0~6 |
-| 다음 | Phase 7 테스트 강화 |
+| 완료 | 문서 4종, Phase 0~7 |
+| 다음 | Phase 8 통합 테스트 |
 | 막힌 점 | 없음 (GitHub 인증 완료, 단계별 push 중) |
 | 최신 커밋 | (없음) |
