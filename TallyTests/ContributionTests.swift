@@ -48,11 +48,11 @@ final class ContributionTests: XCTestCase {
         XCTAssertEqual(MonthStats.leadingBlanks(for: TS.date(2026, 10, 1), calendar: mon), 3)
     }
 
-    func testDailyRatioIgnoresHabitsNotYetCreated() {
+    func testDayRatioIgnoresHabitsNotYetCreated() {
         let cal = TS.calendar()
         let day = TS.date(2026, 10, 1)
         let a = (created: TS.date(2026, 1, 1), done: TS.days([(2026, 10, 1)]))
         let b = (created: TS.date(2026, 12, 1), done: Set<Date>())
-        XCTAssertEqual(DailyRatio.ratio(on: day, habits: [a, b], calendar: cal), 1)
+        XCTAssertEqual(DayRatio.ratio(on: day, habits: [a, b], calendar: cal), 1)
     }
 }

@@ -152,7 +152,7 @@ enum MonthStats {
 
 // MARK: - 여러 습관 합산
 
-enum DailyRatio {
+enum DayRatio {
     /// 그날 존재하던 습관 중 완료한 비율. 대상 습관이 없으면 0
     static func ratio(on day: Date, habits: [(created: Date, done: Set<Date>)], calendar: Calendar) -> Double {
         let d = calendar.startOfDay(for: day)

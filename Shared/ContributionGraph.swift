@@ -28,7 +28,7 @@ struct ContributionSource {
 
     func level(on day: Date) -> Int {
         if habits.count == 1 { return habits[0].done.contains(calendar.startOfDay(for: day)) ? 4 : 0 }
-        let r = DailyRatio.ratio(on: day, habits: habits.map { ($0.created, $0.done) }, calendar: calendar)
+        let r = DayRatio.ratio(on: day, habits: habits.map { ($0.created, $0.done) }, calendar: calendar)
         return Contribution.level(r)
     }
 }

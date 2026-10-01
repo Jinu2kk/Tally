@@ -33,7 +33,7 @@ final class EdgeCaseTests: XCTestCase {
 
     func testNoHabits() {
         let cal = TS.calendar()
-        XCTAssertEqual(DailyRatio.ratio(on: .now, habits: [], calendar: cal), 0)
+        XCTAssertEqual(DayRatio.ratio(on: .now, habits: [], calendar: cal), 0)
         XCTAssertEqual(ContributionSource(habits: [], calendar: cal).level(on: .now), 0)
         XCTAssertEqual(Streaks.current([], today: .now, calendar: cal), 0)
     }
