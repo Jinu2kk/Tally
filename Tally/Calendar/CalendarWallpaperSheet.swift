@@ -7,11 +7,13 @@ struct CalendarWallpaperSheet: View {
     @Environment(\.openURL) private var openURL
     @AppStorage(SettingsKey.wallpaperScale, store: AppSettings.store) private var scale = 0.95
     @AppStorage(SettingsKey.wallpaperWeekly, store: AppSettings.store) private var weekly = false
+    @AppStorage(SettingsKey.wallpaperOffset, store: AppSettings.store) private var offset = -1.0
     @AppStorage(SettingsKey.emphasizeHoliday, store: AppSettings.store) private var h = true
     @AppStorage(SettingsKey.emphasizeSaturday, store: AppSettings.store) private var sa = false
     @AppStorage(SettingsKey.emphasizeSunday, store: AppSettings.store) private var su = true
 
     @State private var image: UIImage?
+    @State private var photo: UIImage? = CalendarBackgroundStore.load()
     @State private var fileURL: URL?
     @State private var error: String?
 
@@ -19,25 +21,12 @@ struct CalendarWallpaperSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 18) {
-                    Text("잠금 화면 미리보기").labelStyle()
-                    preview
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Label("크기 조절", systemImage: "arrow.up.left.and.arrow.down.right")
-                            Spacer()
-                            Text("\(Int(scale * 100))%").monospacedDigit()
-                        }
-                        .font(.subheadline).foregroundStyle(Ink.faint)
-                        Slider(value: $scale, in: 0.7...1, step: 0.01).accessibilityLabel("크기 조절")
-                    }
-                    Picker("형태", selection: $weekly) {
-                        Text("월간").tag(false)
-                        Text("주간").tag(true)
-                    }
-                    .pickerStyle(.segmented)
+                    let _ = (scale, weekly, offset, h, sa, su)
+                    WallpaperLayoutEditor(style: CalendarStyle.current, photo: photo)
                     EmphasisChips().inkCard(padding: 14)
                     Text("앱에서와 동일하게 표시됩니다").font(.caption).foregroundStyle(Ink.faint)
 
+                    if let error { Text(error).font(.footnote).foregroundStyle(.red) }
                     if let fileURL, image != nil {
                         Button { ShareSheet.present([fileURL]) } label: {
                             Label("이미지 저장 · 공유", systemImage: "square.and.arrow.down")
@@ -55,25 +44,13 @@ struct CalendarWallpaperSheet: View {
             .navigationTitle("배경화면")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("완료") { dismiss() } } }
-            .task(id: "\(scale)-\(weekly)-\(h)-\(sa)-\(su)") { render() }
-        }
-    }
-
-    private var preview: some View {
-        let size = CalendarWallpaper.screen.size
-        return Group {
-            if let image {
-                Image(uiImage: image).resizable().scaledToFit()
-            } else if let error {
-                Text(error).font(.footnote).foregroundStyle(.red).padding()
-            } else {
-                ProgressView()
+            .task(id: "\(scale)-\(weekly)-\(offset)-\(h)-\(sa)-\(su)") {
+                // 슬라이더를 끄는 동안에는 매번 그리지 않고 멈추면 한 번 만든다
+                try? await Task.sleep(for: .milliseconds(250))
+                guard !Task.isCancelled else { return }
+                render()
             }
         }
-        .frame(width: 200, height: 200 * size.height / size.width)
-        .clipShape(RoundedRectangle(cornerRadius: 26))
-        .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(Ink.ink, lineWidth: 5))
-        .accessibilityLabel("배경화면 미리보기")
     }
 
     /// FR-7.15 자동화 안내

@@ -14,10 +14,10 @@ struct CalendarWallpaperView: View {
                 .frame(width: size.width, height: size.height)
                 .clipped()
             // 위쪽 약 35%는 잠금화면 시계·위젯 자리
-            let top = size.height * (snapshot.weeks.count == 1 ? 0.62 : 0.345)
+            let top = size.height * style.wallpaperTop(weeks: snapshot.weeks.count)
             MonthCalendarGrid(snapshot: snapshot, style: style,
                               width: .init(value: size.width * 0.94 * style.wallpaperScale),
-                              maxHeight: (size.height - top - size.height * 0.05) * style.wallpaperScale)
+                              maxHeight: max(size.height * 0.2, size.height - top - size.height * 0.05) * style.wallpaperScale)
                 .padding(.top, top)
                 .frame(width: size.width)
         }
@@ -54,6 +54,20 @@ enum CalendarWallpaper {
         return (Wallpaper.defaultSize, 3)
     }
 
+    /// 배경화면에 그릴 달력 데이터 (미리보기와 렌더가 함께 쓴다)
+    @MainActor
+    static func snapshot(style: CalendarStyle, now: Date = .now) -> CalendarSnapshot? {
+        let store = CalendarStore.shared
+        let cal = AppSettings.calendar
+        let empty = CalendarSnapshot.make(month: now, events: [], holidays: [], today: now, calendar: cal, weekly: style.wallpaperWeekly)
+        guard let interval = empty.interval else { return nil }
+        let events = store.events(in: interval)
+        let holidays = CalendarMath.holidays(events, holidayCalendarIDs: store.holidayCalendarIDs, calendar: cal)
+        var s = CalendarSnapshot.make(month: now, events: events, holidays: holidays, today: now, calendar: cal, weekly: style.wallpaperWeekly)
+        s.lanes = style.wallpaperWeekly ? 7 : 4
+        return s
+    }
+
     /// 지금 일정과 설정으로 배경화면을 만든다. weekly가 nil이면 설정값
     @MainActor
     static func render(weekly: Bool? = nil, now: Date = .now, size: CGSize? = nil, scale: CGFloat? = nil,
@@ -63,13 +77,7 @@ enum CalendarWallpaper {
         guard store.hasAccess else { throw CalendarWallpaperError.noAccess }
         var style = overrideStyle ?? .current
         if let weekly { style.wallpaperWeekly = weekly }
-        let cal = AppSettings.calendar
-        let snapshot0 = CalendarSnapshot.make(month: now, events: [], holidays: [], today: now, calendar: cal, weekly: style.wallpaperWeekly)
-        guard let interval = snapshot0.interval else { throw CalendarWallpaperError.renderFailed }
-        let events = store.events(in: interval)
-        let holidays = CalendarMath.holidays(events, holidayCalendarIDs: store.holidayCalendarIDs, calendar: cal)
-        var snapshot = CalendarSnapshot.make(month: now, events: events, holidays: holidays, today: now, calendar: cal, weekly: style.wallpaperWeekly)
-        snapshot.lanes = style.wallpaperWeekly ? 7 : 4
+        guard let snapshot = snapshot(style: style, now: now) else { throw CalendarWallpaperError.renderFailed }
 
         let screen = screen
         let view = CalendarWallpaperView(size: size ?? screen.size, style: style,

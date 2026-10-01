@@ -1,3 +1,5 @@
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import SwiftUI
 import UIKit
 
@@ -22,6 +24,13 @@ struct CalendarStyle: Equatable {
     var blur = 0.0
     var wallpaperScale = 0.95
     var wallpaperWeekly = false
+    /// 배경화면에서 달력 윗변 위치(화면 높이 비율). 음수면 자동(시계 아래)
+    var wallpaperOffset = -1.0
+
+    static let offsetRange = 0.08...0.75
+    func wallpaperTop(weeks: Int) -> Double {
+        wallpaperOffset >= 0 ? wallpaperOffset : (weeks == 1 ? 0.62 : 0.345)
+    }
 
     /// 배경이 사진·패턴·단색이면 글자를 밝게 (배경 위 가독성)
     var onImage: Bool { background != .none }
@@ -43,6 +52,7 @@ struct CalendarStyle: Equatable {
         s.blur = d.double(forKey: SettingsKey.backgroundBlur)
         if d.object(forKey: SettingsKey.wallpaperScale) != nil { s.wallpaperScale = d.double(forKey: SettingsKey.wallpaperScale) }
         s.wallpaperWeekly = d.bool(forKey: SettingsKey.wallpaperWeekly)
+        if d.object(forKey: SettingsKey.wallpaperOffset) != nil { s.wallpaperOffset = d.double(forKey: SettingsKey.wallpaperOffset) }
         return s
     }
 
@@ -50,7 +60,8 @@ struct CalendarStyle: Equatable {
     static func resetStored() {
         [SettingsKey.emphasizeHoliday, SettingsKey.emphasizeSaturday, SettingsKey.emphasizeSunday, SettingsKey.hideAdjacentDays,
          SettingsKey.todayColor, SettingsKey.calendarBackground, SettingsKey.backgroundColor, SettingsKey.backgroundPattern,
-         SettingsKey.backgroundOpacity, SettingsKey.backgroundBlur, SettingsKey.wallpaperScale, SettingsKey.wallpaperWeekly]
+         SettingsKey.backgroundOpacity, SettingsKey.backgroundBlur, SettingsKey.wallpaperScale, SettingsKey.wallpaperWeekly,
+         SettingsKey.wallpaperOffset]
             .forEach { AppSettings.store.removeObject(forKey: $0) }
         CalendarBackgroundStore.removePhoto()
     }
@@ -80,6 +91,28 @@ enum CalendarBackgroundStore {
     }
 
     private static var cached: (Date, UIImage)?
+
+    private static var blurCache: (key: String, image: UIImage)?
+    private static let ciContext = CIContext()
+
+    /// 블러를 이미지 자체에 입힌다. SwiftUI .blur는 사진 가장자리를 투명·검게 만들고
+    /// 배경화면 렌더(ImageRenderer)에서도 결과가 달라서 CoreImage로 처리한다
+    static func blurred(_ image: UIImage, radius: Double) -> UIImage {
+        guard radius > 0.5 else { return image }
+        let small = image.resized(maxSide: 1200)
+        let key = "\(ObjectIdentifier(image).hashValue)-\(Int(radius.rounded()))"
+        if let c = blurCache, c.key == key { return c.image }
+        guard let input = CIImage(image: small) else { return image }
+        let f = CIFilter.gaussianBlur()
+        f.inputImage = input.clampedToExtent()
+        // 슬라이더 값(0~20)은 화면 포인트 기준 → 이미지 픽셀 기준으로 환산
+        f.radius = Float(radius * small.size.width / 393)
+        guard let out = f.outputImage?.cropped(to: input.extent),
+              let cg = ciContext.createCGImage(out, from: input.extent) else { return image }
+        let result = UIImage(cgImage: cg)
+        blurCache = (key, result)
+        return result
+    }
 
     static func load() -> UIImage? {
         guard let url = photoURL,
@@ -133,30 +166,34 @@ struct CalendarBackgroundView: View {
     let photo: UIImage?
 
     var body: some View {
-        ZStack {
-            Ink.paper
-            switch style.background {
-            case .none:
-                EmptyView()
-            case .color:
-                Color(hex: style.backgroundHex)
-            case .pattern:
-                CalendarPattern.view(style.pattern)
-            case .photo:
-                if let photo {
-                    GeometryReader { g in
-                        Image(uiImage: photo).resizable().scaledToFill()
-                            .frame(width: g.size.width, height: g.size.height).clipped()
+        GeometryReader { g in
+            ZStack {
+                Ink.paper
+                switch style.background {
+                case .none:
+                    EmptyView()
+                case .color:
+                    Color(hex: style.backgroundHex)
+                case .pattern:
+                    CalendarPattern.view(style.pattern)
+                        .blur(radius: style.blur)
+                        .scaleEffect(1 + style.blur / 40) // 블러로 생기는 가장자리 번짐을 화면 밖으로
+                case .photo:
+                    if let photo {
+                        Image(uiImage: CalendarBackgroundStore.blurred(photo, radius: style.blur))
+                            .resizable().scaledToFill()
+                            .frame(width: g.size.width, height: g.size.height)
+                    } else {
+                        CalendarPattern.view(0)
                     }
-                } else {
-                    CalendarPattern.view(0)
+                }
+                if style.onImage {
+                    // 불투명도 = 배경이 얼마나 진하게 보이는지. 낮을수록 어두운 막을 덮는다
+                    Color.black.opacity((1 - style.opacity) * 0.85)
                 }
             }
-            if style.onImage {
-                // 불투명도 = 배경이 얼마나 진하게 보이는지. 낮을수록 어두운 막을 덮는다
-                Color.black.opacity((1 - style.opacity) * 0.85)
-            }
+            .frame(width: g.size.width, height: g.size.height)
+            .clipped()
         }
-        .blur(radius: style.background == .none ? 0 : style.blur, opaque: true)
     }
 }

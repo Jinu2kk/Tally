@@ -24,6 +24,7 @@ enum SettingsKey {
     static let backgroundBlur = "backgroundBlur"          // 0...20
     static let wallpaperScale = "wallpaperScale"          // 0.7...1
     static let wallpaperWeekly = "wallpaperWeekly"
+    static let wallpaperOffset = "wallpaperOffset"        // 달력 윗변 위치(화면 높이 비율), -1 = 자동
     static let statsPeriod = "statsPeriod"                // CalendarPeriod.rawValue
 }
 
