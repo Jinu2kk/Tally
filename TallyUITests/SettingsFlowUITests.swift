@@ -7,7 +7,7 @@ final class SettingsFlowUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-uiTesting", "YES", "-seedDemo", "YES"]
+        app.launchArguments += ["-uiTesting", "YES", "-tab", "habits", "-seedDemo", "YES"]
         app.launch()
     }
 

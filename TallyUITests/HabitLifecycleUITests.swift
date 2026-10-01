@@ -7,7 +7,7 @@ final class HabitLifecycleUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-uiTesting", "YES"]
+        app.launchArguments += ["-uiTesting", "YES", "-tab", "habits"]
         app.launch()
     }
 

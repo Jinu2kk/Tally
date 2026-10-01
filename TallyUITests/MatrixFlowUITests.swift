@@ -9,7 +9,7 @@ final class MatrixFlowUITests: XCTestCase {
         app = XCUIApplication()
         app.launchArguments += ["-uiTesting", "YES"]
         app.launch()
-        app.tabBars.buttons["우선순위"].tap()
+        app.tabBars.buttons["할 일"].tap()
     }
 
     private func addTask(_ title: String, to quadrant: String) {

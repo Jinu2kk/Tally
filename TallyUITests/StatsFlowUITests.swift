@@ -4,7 +4,7 @@ import XCTest
 final class StatsFlowUITests: XCTestCase {
     func testHabitFilterAndMonthNavigation() {
         let app = XCUIApplication()
-        app.launchArguments += ["-uiTesting", "YES", "-seedDemo", "YES"]
+        app.launchArguments += ["-uiTesting", "YES", "-seedDemo", "YES", "-tab", "habits"]
         app.launch()
 
         // MT-4.3 오늘 탭의 연속 기록 값을 기억

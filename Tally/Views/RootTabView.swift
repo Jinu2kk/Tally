@@ -1,22 +1,26 @@
 import SwiftUI
 
 struct RootTabView: View {
-    /// 디버그·스크린샷용: 실행 인자 `-tab time|matrix|stats`
-    @State private var tab: Tab = Tab(rawValue: UserDefaults.standard.string(forKey: "tab") ?? "") ?? .today
+    /// 디버그·스크린샷용: 실행 인자 `-tab habits|matrix|time|stats`
+    @State private var tab: Tab = Tab(rawValue: UserDefaults.standard.string(forKey: "tab") ?? "") ?? .calendar
 
-    enum Tab: String, Hashable { case today, time, matrix, stats }
+    /// 탭 순서: 달력 · 습관 · 할 일 · 시간 · 기록 (DC-7)
+    enum Tab: String, Hashable { case calendar, habits, matrix, time, stats }
 
     var body: some View {
         TabView(selection: $tab) {
+            CalendarTabView()
+                .tabItem { Label("달력", systemImage: "calendar") }
+                .tag(Tab.calendar)
             TodayView()
-                .tabItem { Label("오늘", systemImage: "circle.dotted.circle") }
-                .tag(Tab.today)
+                .tabItem { Label("습관", systemImage: "circle.dotted.circle") }
+                .tag(Tab.habits)
+            MatrixView()
+                .tabItem { Label("할 일", systemImage: "square.grid.2x2") }
+                .tag(Tab.matrix)
             TimeView()
                 .tabItem { Label("시간", systemImage: "hourglass") }
                 .tag(Tab.time)
-            MatrixView()
-                .tabItem { Label("우선순위", systemImage: "square.grid.2x2") }
-                .tag(Tab.matrix)
             StatsView()
                 .tabItem { Label("기록", systemImage: "chart.dots.scatter") }
                 .tag(Tab.stats)
