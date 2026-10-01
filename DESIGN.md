@@ -23,7 +23,13 @@
 - [x] **IC-9 드래그 앤 드롭:** `TaskItem.id`의 UUID 문자열을 `String`(Transferable)로 전달하고 `dropDestination(for: String.self)`에서 조회
 - [x] **IC-10 테스트:** `TallyTests` 단위 테스트 타깃(호스트 앱 없음)에 `Shared/`를 포함해 순수 계산 함수를 검증. XCTest 사용
 - [x] **IC-12 UI 자동 검증:** `TallyUITests`(XCUITest) 타깃 추가. 실행 인자 `-uiTesting YES`면 메모리 저장소를 써서 테스트끼리 데이터가 섞이지 않음. 수동 체크리스트 중 자동화 가능한 항목(MT-1.x, MT-3.x 등)을 대신 검증. 디버그 전용 `-seedDemo YES|<습관 수>`로 시연·성능 데이터 생성
+- [x] **IC-13 일정 편집 = 시스템 편집기(`EKEventEditViewController`).** 반복·알림·위치·초대까지 기본 캘린더와 같은 기능을 바로 지원하고, 삭제 시 "이번 일정만 / 이후 모두" 처리도 시스템이 맡음. 읽기 화면(월간 달력, 날짜별 목록)만 Tally 디자인으로 만든다. 검증: MT-8.4
+- [x] **IC-14 일정 데이터 경계:** EventKit 객체(`EKEvent`)를 화면에 직접 넘기지 않고 값 타입 `DayEvent`로 변환. 날짜 칸 배치·정렬·최대 4개 계산은 `CalendarMath`(순수 함수)에서 처리해 테스트한다. 검증: T-9.x
 - [x] **IC-11 앱 아이콘:** Swift 스크립트(`scripts/make_icon.swift`)로 1024px PNG 생성. 단일 크기 아이콘 사용
+
+### 달력 결정 (2026-10-01 추가)
+- [x] **DC-6 일정 저장소 = iPhone 기본 캘린더(EventKit).** 사용자가 이미 쓰는 일정(구글 캘린더 등 계정 포함)을 다시 입력할 필요가 없음. Tally는 일정을 따로 저장하지 않는다 (NFR-6)
+- [ ] **DC-7 달력 화면 배치 = TBD.** 사용자가 보낼 참고 이미지 기준으로 탭 위치(첫 탭 여부), 날짜 칸 모양, 일정 표시 방식, 하단 통계 항목을 확정한다
 
 ## 2. 아키텍처
 
@@ -105,6 +111,15 @@
 - 데이터 초기화: 확인 대화상자 → 모든 모델 삭제 → `Reminders.cancelAll()` → 위젯 갱신
 - 비밀 값: 코드에 토큰이나 개인 정보 없음. `.gitignore`에 `xcuserdata`, `DerivedData`, `build/`
 
+## 6-1. 달력 모듈 계약
+| 파일 | 책임 | 공개 API(요약) |
+|---|---|---|
+| `Shared/CalendarMath.swift` | 순수 계산 | `DayEvent`, `CalendarMath.monthGrid`, `events(on:from:)`, `cellLayout(_:limit:)`, `periodStats` |
+| `Tally/CalendarStore.swift` | EventKit 래퍼 (`@Observable`) | `authorization`, `requestAccess()`, `calendars`, `events(in:)`, `editor(for:)`, 변경 알림 구독 |
+| `Tally/Views/CalendarView.swift` 외 | 화면 | DC-7 확정 후 작성 |
+
+권한 키: `NSCalendarsFullAccessUsageDescription`(iOS 17 전체 접근). 쓰기 전용 접근은 읽기가 안 되므로 쓰지 않는다.
+
 ## 7. 결정 ↔ 검증 연결
 | 결정 | 검증 |
 |---|---|
@@ -114,3 +129,5 @@
 | IC-7 | MT-5.2 위젯에서 체크 → 앱 반영 |
 | IC-8 | MT-2.5, MT-2.6 |
 | IC-9 | MT-3.3 |
+| DC-6, IC-13 | MT-8.1 ~ 8.5 |
+| IC-14 | T-9.1 ~ T-9.6 |
